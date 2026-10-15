@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "id": "ambientweather",
+  "name": "Ambient Weather station",
+  "version": "1.0.0",
+  "category": "Weather",
+  "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality.",
+  "description": "Reads your station's latest readings from the AmbientWeather.net API (api.ambientweather.net), so the station must be uploading to AmbientWeather.net. Create an API key and an Application key on your AmbientWeather.net account page and enter both here. If your account has several stations, the first one listed is used. Readings are in US units (°F, mph, inches, inHg).",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/ambientweather",
+  "hosts": ["api.ambientweather.net"],
+  "settings": [
+    {
+      "key": "api_key",
+      "label": "API key",
+      "type": "secret",
+      "required": true,
+      "help": "From ambientweather.net → Account → API Keys → Create API Key. It gives read access to your stations."
+    },
+    {
+      "key": "app_key",
+      "label": "Application key",
+      "type": "secret",
+      "required": true,
+      "help": "From the same API Keys page: Create Application Key. Ambient's API needs both keys."
+    }
+  ],
+  "sources": {
+    "devices": {
+      "url": "https://api.ambientweather.net/v1/devices?apiKey={api_key}&applicationKey={app_key}",
+      "network": "internet",
+      "timeout": 8,
+      "cache_seconds": 60
+    }
+  },
+  "commands": [
+    {
+      "name": "weather",
+      "help": "local weather",
+      "source": "devices",
+      "values": {
+        "temp": {"from": ["[0].lastData.tempf"]},
+        "humidity": {"from": ["[0].lastData.humidity"]},
+        "wind": {"from": ["[0].lastData.windspeedmph"]},
+        "gust": {"from": ["[0].lastData.windgustmph"]},
+        "wind_dir": {"from": ["[0].lastData.winddir"], "format": "compass"},
+        "rain": {
+          "from": [
+            {"path": "[0].lastData.dailyrainin", "label": "today"},
+            {"path": "[0].lastData.24hourrainin", "label": "24h"}
+          ]
+        },
+        "pressure": {"from": ["[0].lastData.baromrelin"]},
+        "uv": {"from": ["[0].lastData.uv"]},
+        "aqi": {"from": ["[0].lastData.aqi_pm25", "[0].lastData.aqi_pm25_aqin"]},
+        "pm25": {"from": ["[0].lastData.pm25", "[0].lastData.pm25_in_aqin"]},
+        "co2": {"from": ["[0].lastData.co2_in_aqin"]}
+      },
+      "reply": {
+        "parts": [
+          {"items": ["{temp}°F", "{humidity}% RH"]},
+          {"items": ["wind {wind} mph[ {wind_dir}][, gust {gust}]"]},
+          {"items": ["rain {rain.label} {rain} in"]},
+          {"items": ["{pressure} inHg", "UV {uv}", "AQI {aqi}", "PM2.5 {pm25}", "CO2 {co2}ppm"], "drop": "end"}
+        ],
+        "join": " · ",
+        "item_join": " ",
+        "max_bytes": 150,
+        "empty": "The weather station hasn't reported any readings to AmbientWeather.net.",
+        "unavailable": "AmbientWeather.net isn't answering right now."
+      }
+    }
+  ]
+}

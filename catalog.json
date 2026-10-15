@@ -2,6 +2,15 @@
   "schema": 1,
   "apps": [
     {
+      "id": "ambientweather",
+      "name": "Ambient Weather station",
+      "version": "1.0.0",
+      "category": "Weather",
+      "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality.",
+      "recipe": "apps/ambientweather/app.json",
+      "sha256": "08de0007e5b9b3e95a554687db521cfa4154693c6231a215714550f813e3eeb2"
+    },
+    {
       "id": "ecowitt",
       "name": "Ecowitt weather station",
       "version": "1.0.1",

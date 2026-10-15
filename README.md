@@ -6,6 +6,7 @@ that people on the mesh can send to your node, such as `/weather`. You install t
 
 | App | Category | Command | What it does |
 | --- | --- | --- | --- |
+| [Ambient Weather station](apps/ambientweather/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain, pressure and air quality from your Ambient Weather station, read from AmbientWeather.net with your API keys |
 | [Ecowitt weather station](apps/ecowitt/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain and air quality from your Ecowitt gateway, read on your network |
 
 ## How apps work
