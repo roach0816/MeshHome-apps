@@ -14,7 +14,7 @@ The [Ecowitt app](apps/ecowitt/app.json) is a complete example.
   "description": "A paragraph shown before installing.",
   "author": "…",
   "homepage": "https://…",
-  "min_meshhome": "1.0.1",
+  "min_meshhome": "1.0.0",
   "hosts": [],
   "settings": [ … ],
   "sources": { … },
