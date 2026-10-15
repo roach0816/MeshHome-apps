@@ -28,10 +28,13 @@ def build() -> str:
             sys.exit(f"{path}: id {recipe.get('id')!r} must match its folder {folder!r}")
         if not re.fullmatch(r"\d+\.\d+\.\d+", str(recipe.get("version", ""))):
             sys.exit(f"{path}: version must look like 1.2.3")
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9 &/+-]{0,29}", str(recipe.get("category", ""))):
+            sys.exit(f"{path}: needs a category (up to 30 characters, e.g. \"Weather\")")
         entry = {
             "id": recipe["id"],
             "name": recipe["name"],
             "version": recipe["version"],
+            "category": recipe["category"],
             "summary": recipe["summary"],
             "recipe": f"apps/{folder}/app.json",
             "sha256": hashlib.sha256(raw).hexdigest(),

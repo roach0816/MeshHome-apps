@@ -4,9 +4,9 @@ The app catalog for the [MeshHome](https://github.com/roach0816/MeshHome) bot. A
 that people on the mesh can send to your node, such as `/weather`. You install them from
 **Settings → Bot → Apps** in MeshHome.
 
-| App | Command | What it does |
-| --- | --- | --- |
-| [Ecowitt weather station](apps/ecowitt/app.json) | `/weather` | Temperature, humidity, wind, rain and air quality from your Ecowitt gateway, read on your network |
+| App | Category | Command | What it does |
+| --- | --- | --- | --- |
+| [Ecowitt weather station](apps/ecowitt/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain and air quality from your Ecowitt gateway, read on your network |
 
 ## How apps work
 
@@ -28,7 +28,8 @@ the one listed there.
 ## Adding, updating or removing an app
 
 1. Edit `apps/<id>/app.json`, or add or delete an app's folder. The folder name is the app's `id`.
-   When you change an app, raise its `version`.
+   Give it a `category`; MeshHome's catalog filters by the categories its apps use, so a new
+   category appears as soon as an app has it. When you change an app, raise its `version`.
 2. Run `python3 tools/build_catalog.py` to regenerate `catalog.json` with the new checksums.
 3. Commit and push. CI checks every app with MeshHome's recipe engine.
 

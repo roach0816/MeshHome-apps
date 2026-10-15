@@ -10,6 +10,7 @@ The [Ecowitt app](apps/ecowitt/app.json) is a complete example.
   "id": "ecowitt",
   "name": "Ecowitt weather station",
   "version": "1.0.0",
+  "category": "Weather",
   "summary": "One line for the catalog.",
   "description": "A paragraph shown before installing.",
   "author": "…",
@@ -26,6 +27,7 @@ The [Ecowitt app](apps/ecowitt/app.json) is a complete example.
 | --- | --- |
 | `id` | 2–32 characters: lowercase letters, digits, `-`. Matches the folder name. |
 | `version` | `major.minor.patch`. Raise it with every change. |
+| `category` | Groups apps in MeshHome's catalog, such as `Weather` or `Home automation`. Up to 30 characters (letters, digits, spaces, `&`, `/`, `+`, `-`). Required in this catalog; apps without one show under "Other". |
 | `min_meshhome` | Optional: the oldest MeshHome that can run it. |
 | `hosts` | Internet hosts the app may contact, such as `api.example.com`. Shown before installing. |
 
