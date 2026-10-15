@@ -18,6 +18,15 @@
       "summary": "Local weather from your Ecowitt gateway or Wi-Fi console: temperature, humidity, wind, rain and air quality.",
       "recipe": "apps/ecowitt/app.json",
       "sha256": "c6c78e411c5653659db9db1329c2ec7ca7bffd017029d91335babc2d38446a37"
+    },
+    {
+      "id": "tempest",
+      "name": "Tempest weather station",
+      "version": "1.0.0",
+      "category": "Weather",
+      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV.",
+      "recipe": "apps/tempest/app.json",
+      "sha256": "be562b707d671870c3786c7b6cd2a6b44cf842ee8fc5fb114bb2dd24056e93cf"
     }
   ]
 }

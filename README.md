@@ -8,6 +8,7 @@ that people on the mesh can send to your node, such as `/weather`. You install t
 | --- | --- | --- | --- |
 | [Ambient Weather station](apps/ambientweather/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain, pressure and air quality from your Ambient Weather station, read from AmbientWeather.net with your API keys |
 | [Ecowitt weather station](apps/ecowitt/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain and air quality from your Ecowitt gateway, read on your network |
+| [Tempest weather station](apps/tempest/app.json) | Weather | `/weather` | Conditions, temperature, humidity, wind, rain, pressure and UV from your WeatherFlow Tempest station, read from the Tempest API with your access token |
 
 ## How apps work
 
