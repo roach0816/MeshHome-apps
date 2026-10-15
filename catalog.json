@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "apps": [
+    {
+      "id": "ecowitt",
+      "name": "Ecowitt weather station",
+      "version": "1.0.0",
+      "summary": "Local weather from your Ecowitt gateway or Wi-Fi console: temperature, humidity, wind, rain and air quality.",
+      "recipe": "apps/ecowitt/app.json",
+      "sha256": "a282d1f5310a0a14c89b460702d82c0d4c00dde7e95a44d5adf2ce1aa77b581b"
+    }
+  ]
+}

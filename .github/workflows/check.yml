@@ -1,0 +1,26 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  apps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: catalog.json matches the apps
+        run: python3 tools/build_catalog.py --check
+      - name: Every app passes MeshHome's recipe checks
+        run: |
+          pip install --quiet pydantic httpx
+          curl -fsSLo /tmp/bot_recipes.py \
+            https://raw.githubusercontent.com/roach0816/MeshHome/main/backend/app/services/bot_recipes.py
+          python3 tools/validate.py /tmp/bot_recipes.py
