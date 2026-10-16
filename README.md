@@ -9,7 +9,8 @@ that people on the mesh can send to your node, such as `/weather`. You install t
 | [AdGuard Home](apps/adguardhome/app.json) | Network | `/dns` | DNS queries, blocked queries and protection status from AdGuard Home on your network |
 | [Ambient Weather station](apps/ambientweather/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain, pressure and air quality from your Ambient Weather station, read from AmbientWeather.net with your API keys |
 | [Ecowitt weather station](apps/ecowitt/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain and air quality from your Ecowitt gateway, read on your network |
-| [Home Assistant](apps/homeassistant/app.json) | Home automation | `/ha <group>` | The state of each entity in a group you define, such as both garage doors, read on your network |
+| [Enphase Envoy solar](apps/enphase/app.json) | Energy & solar | `/solar` | Solar production now and today, home use and grid power from your Envoy (firmware 7+), read on your network |
+| [Home Assistant](apps/homeassistant/app.json) | Home automation | `/ha <group>` | The state of each entity in a group you define, such as both garage doors, read on your network over http:// or https:// |
 | [openHAB](apps/openhab/app.json) | Home automation | `/oh <group>` | The state of each item in a group you define, read on your network |
 | [PiAware / dump1090-fa](apps/piaware/app.json) | Radio & tracking | `/planes`, `/feeder` | Aircraft your ADS-B receiver is tracking, message rate and signal, and PiAware's feeder status, read on your network |
 | [Pi-hole](apps/pihole/app.json) | Network | `/dns` | Queries today, blocked queries and blocking status from Pi-hole 6 on your network |

@@ -1,0 +1,73 @@
+{
+  "schema": 3,
+  "id": "enphase",
+  "name": "Enphase Envoy solar",
+  "version": "1.0.0",
+  "category": "Energy & solar",
+  "summary": "Solar production now and today from your Enphase Envoy (IQ Gateway), plus home use and grid power if it has consumption meters.",
+  "description": "Reads the Envoy's local API on your network (https://<envoy>/api/v1/production and /production.json) with an owner token, for firmware 7 and later. The Envoy uses a self-signed certificate, which this app accepts. Get a token at entrez.enphaseenergy.com (sign in with your Enlighten account, choose your site and gateway serial number); owner tokens last a year. Home use and grid power need consumption CTs; without them the reply shows production only. Grid power is positive when importing and negative when exporting.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/enphase",
+  "min_meshhome": "1.0.2",
+  "settings": [
+    {
+      "key": "host",
+      "label": "Envoy address",
+      "type": "host",
+      "required": true,
+      "placeholder": "192.168.1.40",
+      "help": "The IP address or hostname of your Envoy / IQ Gateway on your network (envoy.local often works)."
+    },
+    {
+      "key": "token",
+      "label": "Owner token",
+      "type": "secret",
+      "required": true,
+      "help": "From entrez.enphaseenergy.com: sign in with your Enlighten account, choose your site and the gateway's serial number, then create the token. It expires after a year."
+    }
+  ],
+  "sources": {
+    "production": {
+      "url": "https://{host}/api/v1/production",
+      "network": "local",
+      "verify_tls": false,
+      "headers": {"Authorization": "Bearer {token}"},
+      "timeout": 8,
+      "cache_seconds": 30
+    },
+    "meters": {
+      "url": "https://{host}/production.json?details=0",
+      "network": "local",
+      "verify_tls": false,
+      "headers": {"Authorization": "Bearer {token}"},
+      "timeout": 8,
+      "cache_seconds": 30
+    }
+  },
+  "commands": [
+    {
+      "name": "solar",
+      "help": "solar production",
+      "sources": ["production", "meters"],
+      "values": {
+        "now": {"from": ["wattsNow"]},
+        "today": {"from": ["wattHoursToday"]},
+        "week": {"from": ["wattHoursSevenDays"]},
+        "use": {"source": "meters", "from": ["consumption[measurementType=total-consumption].wNow"]},
+        "grid": {"source": "meters", "from": ["consumption[measurementType=net-consumption].wNow"]}
+      },
+      "reply": {
+        "parts": [
+          {"items": ["solar {now} W", "today {today} Wh"]},
+          {"items": ["use {use} W", "grid {grid} W"]},
+          {"items": ["7 days {week} Wh"], "drop": "end"}
+        ],
+        "join": " · ",
+        "item_join": " · ",
+        "max_bytes": 150,
+        "empty": "The Envoy reported no production figures.",
+        "unavailable": "The Envoy isn't answering right now."
+      }
+    }
+  ]
+}

@@ -30,14 +30,24 @@
       "sha256": "c6c78e411c5653659db9db1329c2ec7ca7bffd017029d91335babc2d38446a37"
     },
     {
+      "id": "enphase",
+      "name": "Enphase Envoy solar",
+      "version": "1.0.0",
+      "category": "Energy & solar",
+      "summary": "Solar production now and today from your Enphase Envoy (IQ Gateway), plus home use and grid power if it has consumption meters.",
+      "recipe": "apps/enphase/app.json",
+      "sha256": "2c8be652b4b8f4bbc88278f5e7ddce7b8caa03c8605e0a83d95130a4fc2dd06a",
+      "min_meshhome": "1.0.2"
+    },
+    {
       "id": "homeassistant",
       "name": "Home Assistant",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Home automation",
       "summary": "The state of Home Assistant entities you group by name, such as /ha garage for both garage doors.",
       "recipe": "apps/homeassistant/app.json",
-      "sha256": "3ce91a6cdb45f90de412ebf1be9ce22132423bbe15e1f5991178777a3cba9a80",
-      "min_meshhome": "1.0.1"
+      "sha256": "872e32266eff23fe46add8c3dc05a8349e481fab92a99d48149ce3fec256f76f",
+      "min_meshhome": "1.0.2"
     },
     {
       "id": "openhab",
