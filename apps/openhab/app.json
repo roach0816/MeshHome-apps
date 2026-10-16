@@ -1,0 +1,71 @@
+{
+  "schema": 3,
+  "id": "openhab",
+  "name": "openHAB",
+  "version": "1.0.0",
+  "category": "Home automation",
+  "summary": "The state of openHAB items you group by name, such as /oh garage for both garage doors.",
+  "description": "Reads item states from openHAB's REST API (http://<address>/rest/items/<item>) on your network. You choose which items can be read over the air by putting them in named groups: /oh garage reads every item in the garage group and replies with each one's label and state, and /oh on its own lists your group names. Nothing outside your groups can be read. It signs in with an API token, which you create in openHAB under your profile → API Tokens.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/openhab",
+  "min_meshhome": "1.0.1",
+  "settings": [
+    {
+      "key": "host",
+      "label": "openHAB address",
+      "type": "host",
+      "required": true,
+      "placeholder": "192.168.1.30:8080",
+      "help": "The IP address or hostname of openHAB on your network, with its port (usually 8080). It is read over http://."
+    },
+    {
+      "key": "token",
+      "label": "API token",
+      "type": "secret",
+      "required": true,
+      "help": "In openHAB, open your profile (bottom of the sidebar) → API Tokens → Create new API token."
+    },
+    {
+      "key": "groups",
+      "label": "Item groups",
+      "type": "groups",
+      "required": true,
+      "placeholder": "garage: GarageDoorLeft, GarageDoorRight",
+      "help": "One group per line: a name, a colon, then up to 6 item names separated by commas. /oh <name> reads that group. Anyone who can use the bot sees the group names, so name them with that in mind."
+    }
+  ],
+  "sources": {
+    "item": {
+      "url": "http://{host}/rest/items/{item}",
+      "network": "local",
+      "headers": {"Authorization": "Bearer {token}"},
+      "timeout": 6,
+      "cache_seconds": 15
+    }
+  },
+  "commands": [
+    {
+      "name": "oh",
+      "help": "openHAB: /oh <group>",
+      "source": "item",
+      "group": "groups",
+      "values": {
+        "name": {"from": ["label", "name"], "format": "text"},
+        "state": {
+          "from": ["transformedState", "state"],
+          "format": "text",
+          "map": {"ON": "on", "OFF": "off", "OPEN": "open", "CLOSED": "closed", "NULL": "?", "UNDEF": "?"}
+        }
+      },
+      "reply": {
+        "each": "{name}: {state}",
+        "join": " · ",
+        "max_bytes": 150,
+        "empty": "openHAB has no state for that group.",
+        "unavailable": "openHAB isn't answering right now.",
+        "no_group": "Try /oh <group>: {groups}",
+        "unknown_group": "No group {arg}. Try: {groups}"
+      }
+    }
+  ]
+}

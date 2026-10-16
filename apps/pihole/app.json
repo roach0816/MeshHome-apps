@@ -1,0 +1,88 @@
+{
+  "schema": 3,
+  "id": "pihole",
+  "name": "Pi-hole",
+  "version": "1.0.0",
+  "category": "Network",
+  "summary": "Queries today, how many were blocked and whether blocking is on, from your Pi-hole (version 6).",
+  "description": "Reads Pi-hole's API on your network (http://<address>/api/stats/summary and /api/dns/blocking). It signs in with an app password and reuses the session until it expires, so it doesn't use up Pi-hole's session slots. Create the app password in Pi-hole under Settings → Web interface / API (switch to Expert) → Configure app password. Needs Pi-hole 6 or later.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/pihole",
+  "min_meshhome": "1.0.1",
+  "settings": [
+    {
+      "key": "host",
+      "label": "Pi-hole address",
+      "type": "host",
+      "required": true,
+      "placeholder": "192.168.1.2",
+      "help": "The IP address or hostname of your Pi-hole on your network, with its port if the web interface isn't on 80. It is read over http://."
+    },
+    {
+      "key": "password",
+      "label": "App password",
+      "type": "secret",
+      "required": true,
+      "help": "In Pi-hole: Settings → Web interface / API, switch to Expert, then Configure app password. Your normal web password also works, unless two-factor authentication is on."
+    }
+  ],
+  "logins": {
+    "pihole": {
+      "url": "http://{host}/api/auth",
+      "body": {"password": "{password}"},
+      "token_from": "session.sid",
+      "ttl_from": "session.validity",
+      "ttl_max": 1800
+    }
+  },
+  "sources": {
+    "summary": {
+      "url": "http://{host}/api/stats/summary",
+      "network": "local",
+      "login": "pihole",
+      "headers": {"X-FTL-SID": "{login.token}"},
+      "timeout": 6,
+      "cache_seconds": 60
+    },
+    "blocking": {
+      "url": "http://{host}/api/dns/blocking",
+      "network": "local",
+      "login": "pihole",
+      "headers": {"X-FTL-SID": "{login.token}"},
+      "timeout": 6,
+      "cache_seconds": 60
+    }
+  },
+  "commands": [
+    {
+      "name": "dns",
+      "help": "DNS blocking stats",
+      "sources": ["summary", "blocking"],
+      "values": {
+        "total": {"from": ["queries.total"]},
+        "blocked": {"from": ["queries.blocked"]},
+        "percent": {"from": ["queries.percent_blocked"]},
+        "clients": {"from": ["clients.active"]},
+        "domains": {"from": ["gravity.domains_being_blocked"]},
+        "blocking": {
+          "source": "blocking",
+          "from": ["blocking"],
+          "format": "text",
+          "map": {"enabled": "blocking on", "disabled": "blocking OFF", "failed": "blocking failed", "unknown": ""}
+        }
+      },
+      "reply": {
+        "parts": [
+          {"items": ["{total} queries", "{blocked} blocked[ ({percent}%)]"]},
+          {"items": ["{blocking}"]},
+          {"items": ["{clients} clients", "{domains} on blocklists"], "drop": "end"}
+        ],
+        "join": " · ",
+        "item_join": " · ",
+        "max_bytes": 150,
+        "empty": "Pi-hole reported no statistics.",
+        "unavailable": "Pi-hole isn't answering right now."
+      }
+    }
+  ]
+}

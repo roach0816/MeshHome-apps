@@ -1,0 +1,89 @@
+{
+  "schema": 3,
+  "id": "piaware",
+  "name": "PiAware / dump1090-fa",
+  "version": "1.0.0",
+  "category": "Radio & tracking",
+  "summary": "Aircraft your ADS-B receiver is tracking, message rate and signal, plus PiAware's feeder status.",
+  "description": "Reads SkyAware's data on your PiAware or dump1090-fa receiver (http://<address>/skyaware/data/aircraft.json and stats.json) and PiAware's status (/status.json). /planes counts the aircraft tracked right now and how many have a position, with messages and signal over the last minute. /feeder shows whether PiAware, the FlightAware connection, the radio and MLAT are working. Use the address you open SkyAware at, without /skyaware.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/piaware",
+  "min_meshhome": "1.0.1",
+  "settings": [
+    {
+      "key": "host",
+      "label": "Receiver address",
+      "type": "host",
+      "required": true,
+      "placeholder": "192.168.1.70",
+      "help": "The IP address or hostname of your PiAware or dump1090-fa receiver, with a port if SkyAware isn't on 80 (some installs use :8080)."
+    }
+  ],
+  "sources": {
+    "aircraft": {
+      "url": "http://{host}/skyaware/data/aircraft.json",
+      "network": "local",
+      "timeout": 6,
+      "cache_seconds": 15,
+      "max_kb": 2048
+    },
+    "stats": {
+      "url": "http://{host}/skyaware/data/stats.json",
+      "network": "local",
+      "timeout": 6,
+      "cache_seconds": 60
+    },
+    "status": {
+      "url": "http://{host}/status.json",
+      "network": "local",
+      "timeout": 6,
+      "cache_seconds": 60
+    }
+  },
+  "commands": [
+    {
+      "name": "planes",
+      "help": "aircraft being tracked",
+      "sources": ["aircraft", "stats"],
+      "values": {
+        "total": {"from": ["aircraft"], "format": "count"},
+        "positions": {"from": ["aircraft[has:lat]"], "format": "count"},
+        "messages": {"source": "stats", "from": ["last1min.messages"]},
+        "signal": {"source": "stats", "from": ["last1min.local.signal"]},
+        "peak": {"source": "stats", "from": ["last1min.local.peak_signal"]}
+      },
+      "reply": {
+        "parts": [
+          {"items": ["{total} aircraft[, {positions} with position]"]},
+          {"items": ["{messages} msgs/min"]},
+          {"items": ["signal {signal} dBFS[, peak {peak}]"], "drop": "end"}
+        ],
+        "join": " · ",
+        "max_bytes": 150,
+        "empty": "The receiver isn't tracking any aircraft.",
+        "unavailable": "The ADS-B receiver isn't answering right now."
+      }
+    },
+    {
+      "name": "feeder",
+      "help": "PiAware feeder status",
+      "source": "status",
+      "values": {
+        "piaware": {"from": ["piaware.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}},
+        "adept": {"from": ["adept.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}},
+        "radio": {"from": ["radio.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}},
+        "mlat": {"from": ["mlat.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}}
+      },
+      "reply": {
+        "parts": [
+          {"items": ["PiAware {piaware}", "FlightAware {adept}", "radio {radio}", "MLAT {mlat}"]}
+        ],
+        "join": " · ",
+        "item_join": " · ",
+        "max_bytes": 150,
+        "empty": "PiAware reported no status.",
+        "unavailable": "PiAware's status page isn't answering (dump1090-fa without PiAware has no /feeder)."
+      }
+    }
+  ]
+}

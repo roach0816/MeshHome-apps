@@ -1,0 +1,383 @@
+{
+  "schema": 3,
+  "id": "sports",
+  "name": "Sports scores",
+  "version": "1.0.0",
+  "category": "Sports",
+  "summary": "Your team's latest result and next game, with its record, from ESPN. Pick a league and a team.",
+  "description": "Reads ESPN's public scores API (site.api.espn.com) for the team you choose: the most recent final score from the team's schedule, and the next game (or the game in progress, with its score) with the team's record. No account is needed. Game times are as ESPN gives them, in US Eastern time. ESPN's API is unofficial and may change without notice. Leagues: NFL, NBA, WNBA, MLB, NHL, MLS and the Premier League.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/sports",
+  "min_meshhome": "1.0.1",
+  "hosts": [
+    "site.api.espn.com"
+  ],
+  "settings": [
+    {
+      "key": "league",
+      "label": "Sport",
+      "type": "select",
+      "required": true,
+      "help": "The league your team plays in.",
+      "options": [
+        {"value": "football/nfl", "label": "NFL (American football)"},
+        {"value": "basketball/nba", "label": "NBA (basketball)"},
+        {"value": "basketball/wnba", "label": "WNBA (basketball)"},
+        {"value": "baseball/mlb", "label": "MLB (baseball)"},
+        {"value": "hockey/nhl", "label": "NHL (hockey)"},
+        {"value": "soccer/usa.1", "label": "MLS (soccer)"},
+        {"value": "soccer/eng.1", "label": "Premier League (soccer)"}
+      ]
+    },
+    {
+      "key": "team",
+      "label": "Team",
+      "type": "select",
+      "required": true,
+      "depends_on": "league",
+      "help": "Choose the sport first.",
+      "options_by": {
+        "football/nfl": [
+          {"value": "22", "label": "Arizona Cardinals"},
+          {"value": "1", "label": "Atlanta Falcons"},
+          {"value": "33", "label": "Baltimore Ravens"},
+          {"value": "2", "label": "Buffalo Bills"},
+          {"value": "29", "label": "Carolina Panthers"},
+          {"value": "3", "label": "Chicago Bears"},
+          {"value": "4", "label": "Cincinnati Bengals"},
+          {"value": "5", "label": "Cleveland Browns"},
+          {"value": "6", "label": "Dallas Cowboys"},
+          {"value": "7", "label": "Denver Broncos"},
+          {"value": "8", "label": "Detroit Lions"},
+          {"value": "9", "label": "Green Bay Packers"},
+          {"value": "34", "label": "Houston Texans"},
+          {"value": "11", "label": "Indianapolis Colts"},
+          {"value": "30", "label": "Jacksonville Jaguars"},
+          {"value": "12", "label": "Kansas City Chiefs"},
+          {"value": "13", "label": "Las Vegas Raiders"},
+          {"value": "24", "label": "Los Angeles Chargers"},
+          {"value": "14", "label": "Los Angeles Rams"},
+          {"value": "15", "label": "Miami Dolphins"},
+          {"value": "16", "label": "Minnesota Vikings"},
+          {"value": "17", "label": "New England Patriots"},
+          {"value": "18", "label": "New Orleans Saints"},
+          {"value": "19", "label": "New York Giants"},
+          {"value": "20", "label": "New York Jets"},
+          {"value": "21", "label": "Philadelphia Eagles"},
+          {"value": "23", "label": "Pittsburgh Steelers"},
+          {"value": "25", "label": "San Francisco 49ers"},
+          {"value": "26", "label": "Seattle Seahawks"},
+          {"value": "27", "label": "Tampa Bay Buccaneers"},
+          {"value": "10", "label": "Tennessee Titans"},
+          {"value": "28", "label": "Washington Commanders"}
+        ],
+        "basketball/nba": [
+          {"value": "1", "label": "Atlanta Hawks"},
+          {"value": "2", "label": "Boston Celtics"},
+          {"value": "17", "label": "Brooklyn Nets"},
+          {"value": "30", "label": "Charlotte Hornets"},
+          {"value": "4", "label": "Chicago Bulls"},
+          {"value": "5", "label": "Cleveland Cavaliers"},
+          {"value": "6", "label": "Dallas Mavericks"},
+          {"value": "7", "label": "Denver Nuggets"},
+          {"value": "8", "label": "Detroit Pistons"},
+          {"value": "9", "label": "Golden State Warriors"},
+          {"value": "10", "label": "Houston Rockets"},
+          {"value": "11", "label": "Indiana Pacers"},
+          {"value": "12", "label": "LA Clippers"},
+          {"value": "13", "label": "Los Angeles Lakers"},
+          {"value": "29", "label": "Memphis Grizzlies"},
+          {"value": "14", "label": "Miami Heat"},
+          {"value": "15", "label": "Milwaukee Bucks"},
+          {"value": "16", "label": "Minnesota Timberwolves"},
+          {"value": "3", "label": "New Orleans Pelicans"},
+          {"value": "18", "label": "New York Knicks"},
+          {"value": "25", "label": "Oklahoma City Thunder"},
+          {"value": "19", "label": "Orlando Magic"},
+          {"value": "20", "label": "Philadelphia 76ers"},
+          {"value": "21", "label": "Phoenix Suns"},
+          {"value": "22", "label": "Portland Trail Blazers"},
+          {"value": "23", "label": "Sacramento Kings"},
+          {"value": "24", "label": "San Antonio Spurs"},
+          {"value": "28", "label": "Toronto Raptors"},
+          {"value": "26", "label": "Utah Jazz"},
+          {"value": "27", "label": "Washington Wizards"}
+        ],
+        "basketball/wnba": [
+          {"value": "20", "label": "Atlanta Dream"},
+          {"value": "19", "label": "Chicago Sky"},
+          {"value": "18", "label": "Connecticut Sun"},
+          {"value": "3", "label": "Dallas Wings"},
+          {"value": "129689", "label": "Golden State Valkyries"},
+          {"value": "5", "label": "Indiana Fever"},
+          {"value": "17", "label": "Las Vegas Aces"},
+          {"value": "6", "label": "Los Angeles Sparks"},
+          {"value": "8", "label": "Minnesota Lynx"},
+          {"value": "9", "label": "New York Liberty"},
+          {"value": "11", "label": "Phoenix Mercury"},
+          {"value": "132052", "label": "Portland Fire"},
+          {"value": "14", "label": "Seattle Storm"},
+          {"value": "131935", "label": "Toronto Tempo"},
+          {"value": "16", "label": "Washington Mystics"}
+        ],
+        "baseball/mlb": [
+          {"value": "29", "label": "Arizona Diamondbacks"},
+          {"value": "11", "label": "Athletics"},
+          {"value": "15", "label": "Atlanta Braves"},
+          {"value": "1", "label": "Baltimore Orioles"},
+          {"value": "2", "label": "Boston Red Sox"},
+          {"value": "16", "label": "Chicago Cubs"},
+          {"value": "4", "label": "Chicago White Sox"},
+          {"value": "17", "label": "Cincinnati Reds"},
+          {"value": "5", "label": "Cleveland Guardians"},
+          {"value": "27", "label": "Colorado Rockies"},
+          {"value": "6", "label": "Detroit Tigers"},
+          {"value": "18", "label": "Houston Astros"},
+          {"value": "7", "label": "Kansas City Royals"},
+          {"value": "3", "label": "Los Angeles Angels"},
+          {"value": "19", "label": "Los Angeles Dodgers"},
+          {"value": "28", "label": "Miami Marlins"},
+          {"value": "8", "label": "Milwaukee Brewers"},
+          {"value": "9", "label": "Minnesota Twins"},
+          {"value": "21", "label": "New York Mets"},
+          {"value": "10", "label": "New York Yankees"},
+          {"value": "22", "label": "Philadelphia Phillies"},
+          {"value": "23", "label": "Pittsburgh Pirates"},
+          {"value": "25", "label": "San Diego Padres"},
+          {"value": "26", "label": "San Francisco Giants"},
+          {"value": "12", "label": "Seattle Mariners"},
+          {"value": "24", "label": "St. Louis Cardinals"},
+          {"value": "30", "label": "Tampa Bay Rays"},
+          {"value": "13", "label": "Texas Rangers"},
+          {"value": "14", "label": "Toronto Blue Jays"},
+          {"value": "20", "label": "Washington Nationals"}
+        ],
+        "hockey/nhl": [
+          {"value": "25", "label": "Anaheim Ducks"},
+          {"value": "1", "label": "Boston Bruins"},
+          {"value": "2", "label": "Buffalo Sabres"},
+          {"value": "3", "label": "Calgary Flames"},
+          {"value": "7", "label": "Carolina Hurricanes"},
+          {"value": "4", "label": "Chicago Blackhawks"},
+          {"value": "17", "label": "Colorado Avalanche"},
+          {"value": "29", "label": "Columbus Blue Jackets"},
+          {"value": "9", "label": "Dallas Stars"},
+          {"value": "5", "label": "Detroit Red Wings"},
+          {"value": "6", "label": "Edmonton Oilers"},
+          {"value": "26", "label": "Florida Panthers"},
+          {"value": "8", "label": "Los Angeles Kings"},
+          {"value": "30", "label": "Minnesota Wild"},
+          {"value": "10", "label": "Montreal Canadiens"},
+          {"value": "27", "label": "Nashville Predators"},
+          {"value": "11", "label": "New Jersey Devils"},
+          {"value": "12", "label": "New York Islanders"},
+          {"value": "13", "label": "New York Rangers"},
+          {"value": "14", "label": "Ottawa Senators"},
+          {"value": "15", "label": "Philadelphia Flyers"},
+          {"value": "16", "label": "Pittsburgh Penguins"},
+          {"value": "18", "label": "San Jose Sharks"},
+          {"value": "124292", "label": "Seattle Kraken"},
+          {"value": "19", "label": "St. Louis Blues"},
+          {"value": "20", "label": "Tampa Bay Lightning"},
+          {"value": "21", "label": "Toronto Maple Leafs"},
+          {"value": "129764", "label": "Utah Mammoth"},
+          {"value": "22", "label": "Vancouver Canucks"},
+          {"value": "37", "label": "Vegas Golden Knights"},
+          {"value": "23", "label": "Washington Capitals"},
+          {"value": "28", "label": "Winnipeg Jets"}
+        ],
+        "soccer/usa.1": [
+          {"value": "18418", "label": "Atlanta United FC"},
+          {"value": "20906", "label": "Austin FC"},
+          {"value": "9720", "label": "CF Montréal"},
+          {"value": "21300", "label": "Charlotte FC"},
+          {"value": "182", "label": "Chicago Fire FC"},
+          {"value": "184", "label": "Colorado Rapids"},
+          {"value": "183", "label": "Columbus Crew"},
+          {"value": "193", "label": "D.C. United"},
+          {"value": "18267", "label": "FC Cincinnati"},
+          {"value": "185", "label": "FC Dallas"},
+          {"value": "6077", "label": "Houston Dynamo FC"},
+          {"value": "20232", "label": "Inter Miami CF"},
+          {"value": "187", "label": "LA Galaxy"},
+          {"value": "18966", "label": "LAFC"},
+          {"value": "17362", "label": "Minnesota United FC"},
+          {"value": "18986", "label": "Nashville SC"},
+          {"value": "189", "label": "New England Revolution"},
+          {"value": "17606", "label": "New York City FC"},
+          {"value": "12011", "label": "Orlando City SC"},
+          {"value": "10739", "label": "Philadelphia Union"},
+          {"value": "9723", "label": "Portland Timbers"},
+          {"value": "4771", "label": "Real Salt Lake"},
+          {"value": "190", "label": "Red Bull New York"},
+          {"value": "22529", "label": "San Diego FC"},
+          {"value": "191", "label": "San Jose Earthquakes"},
+          {"value": "9726", "label": "Seattle Sounders FC"},
+          {"value": "186", "label": "Sporting Kansas City"},
+          {"value": "21812", "label": "St. Louis CITY SC"},
+          {"value": "7318", "label": "Toronto FC"},
+          {"value": "9727", "label": "Vancouver Whitecaps"}
+        ],
+        "soccer/eng.1": [
+          {"value": "349", "label": "AFC Bournemouth"},
+          {"value": "359", "label": "Arsenal"},
+          {"value": "362", "label": "Aston Villa"},
+          {"value": "337", "label": "Brentford"},
+          {"value": "331", "label": "Brighton & Hove Albion"},
+          {"value": "363", "label": "Chelsea"},
+          {"value": "388", "label": "Coventry City"},
+          {"value": "384", "label": "Crystal Palace"},
+          {"value": "368", "label": "Everton"},
+          {"value": "370", "label": "Fulham"},
+          {"value": "306", "label": "Hull City"},
+          {"value": "373", "label": "Ipswich Town"},
+          {"value": "357", "label": "Leeds United"},
+          {"value": "364", "label": "Liverpool"},
+          {"value": "382", "label": "Manchester City"},
+          {"value": "360", "label": "Manchester United"},
+          {"value": "361", "label": "Newcastle United"},
+          {"value": "393", "label": "Nottingham Forest"},
+          {"value": "366", "label": "Sunderland"},
+          {"value": "367", "label": "Tottenham Hotspur"}
+        ]
+      }
+    }
+  ],
+  "sources": {
+    "team": {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/{league}/teams/{team}",
+      "network": "internet",
+      "timeout": 8,
+      "cache_seconds": 120
+    },
+    "schedule": {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/{league}/teams/{team}/schedule",
+      "network": "internet",
+      "timeout": 10,
+      "cache_seconds": 600,
+      "max_kb": 2048
+    }
+  },
+  "commands": [
+    {
+      "name": "sports",
+      "help": "your team's last and next game",
+      "sources": [
+        "schedule",
+        "team"
+      ],
+      "values": {
+        "l_away": {
+          "from": [
+            "events[last:competitions.0.status.type.completed=true].competitions[0].competitors[homeAway=away].team.abbreviation"
+          ],
+          "format": "text"
+        },
+        "l_away_score": {
+          "from": [
+            "events[last:competitions.0.status.type.completed=true].competitions[0].competitors[homeAway=away].score.displayValue"
+          ],
+          "format": "text"
+        },
+        "l_home": {
+          "from": [
+            "events[last:competitions.0.status.type.completed=true].competitions[0].competitors[homeAway=home].team.abbreviation"
+          ],
+          "format": "text"
+        },
+        "l_home_score": {
+          "from": [
+            "events[last:competitions.0.status.type.completed=true].competitions[0].competitors[homeAway=home].score.displayValue"
+          ],
+          "format": "text"
+        },
+        "l_status": {
+          "from": [
+            "events[last:competitions.0.status.type.completed=true].competitions[0].status.type.shortDetail"
+          ],
+          "format": "text"
+        },
+        "n_state": {
+          "source": "team",
+          "from": [
+            "team.nextEvent[0].competitions[0].status.type.state"
+          ],
+          "format": "text",
+          "map": {
+            "pre": "Next",
+            "in": "Now",
+            "post": ""
+          }
+        },
+        "n_away": {
+          "source": "team",
+          "from": [
+            "team.nextEvent[0].competitions[0].competitors[homeAway=away].team.abbreviation"
+          ],
+          "format": "text"
+        },
+        "n_away_score": {
+          "source": "team",
+          "from": [
+            "team.nextEvent[0].competitions[0].competitors[homeAway=away].score.displayValue",
+            "team.nextEvent[0].competitions[0].competitors[homeAway=away].score"
+          ],
+          "format": "text"
+        },
+        "n_home": {
+          "source": "team",
+          "from": [
+            "team.nextEvent[0].competitions[0].competitors[homeAway=home].team.abbreviation"
+          ],
+          "format": "text"
+        },
+        "n_home_score": {
+          "source": "team",
+          "from": [
+            "team.nextEvent[0].competitions[0].competitors[homeAway=home].score.displayValue",
+            "team.nextEvent[0].competitions[0].competitors[homeAway=home].score"
+          ],
+          "format": "text"
+        },
+        "n_status": {
+          "source": "team",
+          "from": [
+            "team.nextEvent[0].competitions[0].status.type.shortDetail"
+          ],
+          "format": "text"
+        },
+        "record": {
+          "source": "team",
+          "from": [
+            "team.record.items[0].summary"
+          ],
+          "format": "text"
+        }
+      },
+      "reply": {
+        "parts": [
+          {
+            "items": [
+              "Last: {l_away} {l_away_score} @ {l_home} {l_home_score} {l_status}"
+            ]
+          },
+          {
+            "items": [
+              "{n_state}: {n_away}[ {n_away_score}] @ {n_home}[ {n_home_score}] {n_status}"
+            ]
+          },
+          {
+            "items": [
+              "{record}"
+            ],
+            "drop": "end"
+          }
+        ],
+        "join": " · ",
+        "max_bytes": 150,
+        "empty": "ESPN has no recent or upcoming games for this team.",
+        "unavailable": "ESPN isn't answering right now."
+      }
+    }
+  ]
+}

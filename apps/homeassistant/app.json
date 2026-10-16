@@ -1,0 +1,72 @@
+{
+  "schema": 3,
+  "id": "homeassistant",
+  "name": "Home Assistant",
+  "version": "1.0.0",
+  "category": "Home automation",
+  "summary": "The state of Home Assistant entities you group by name, such as /ha garage for both garage doors.",
+  "description": "Reads entity states from Home Assistant's REST API (http://<address>/api/states/<entity>) on your network, with a long-lived access token. You choose which entities can be read over the air by putting them in named groups: /ha garage reads every entity in the garage group and replies with each one's name and state, and /ha on its own lists your group names. Nothing outside your groups can be read. Create the token in Home Assistant under your profile → Security → Long-lived access tokens.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/homeassistant",
+  "min_meshhome": "1.0.1",
+  "settings": [
+    {
+      "key": "host",
+      "label": "Home Assistant address",
+      "type": "host",
+      "required": true,
+      "placeholder": "192.168.1.20:8123",
+      "help": "The IP address or hostname of Home Assistant on your network, with its port (usually 8123). It is read over http://."
+    },
+    {
+      "key": "token",
+      "label": "Long-lived access token",
+      "type": "secret",
+      "required": true,
+      "help": "In Home Assistant, open your profile → Security → Long-lived access tokens → Create token."
+    },
+    {
+      "key": "groups",
+      "label": "Entity groups",
+      "type": "groups",
+      "required": true,
+      "placeholder": "garage: cover.garage_left, cover.garage_right",
+      "help": "One group per line: a name, a colon, then up to 6 entity IDs separated by commas. /ha <name> reads that group. Anyone who can use the bot sees the group names, so name them with that in mind."
+    }
+  ],
+  "sources": {
+    "state": {
+      "url": "http://{host}/api/states/{item}",
+      "network": "local",
+      "headers": {"Authorization": "Bearer {token}"},
+      "timeout": 6,
+      "cache_seconds": 15
+    }
+  },
+  "commands": [
+    {
+      "name": "ha",
+      "help": "Home Assistant: /ha <group>",
+      "source": "state",
+      "group": "groups",
+      "values": {
+        "name": {"from": ["attributes.friendly_name", "entity_id"], "format": "text"},
+        "state": {
+          "from": ["state"],
+          "format": "text",
+          "map": {"not_home": "away", "unavailable": "offline", "unknown": "?"}
+        },
+        "unit": {"from": ["attributes.unit_of_measurement"], "format": "text"}
+      },
+      "reply": {
+        "each": "{name}: {state}[ {unit}]",
+        "join": " · ",
+        "max_bytes": 150,
+        "empty": "Home Assistant has no state for that group.",
+        "unavailable": "Home Assistant isn't answering right now.",
+        "no_group": "Try /ha <group>: {groups}",
+        "unknown_group": "No group {arg}. Try: {groups}"
+      }
+    }
+  ]
+}

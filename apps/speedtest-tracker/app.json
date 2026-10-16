@@ -1,0 +1,65 @@
+{
+  "schema": 3,
+  "id": "speedtest-tracker",
+  "name": "Speedtest Tracker",
+  "version": "1.0.0",
+  "category": "Network",
+  "summary": "Your internet connection's latest download, upload and ping from Speedtest Tracker.",
+  "description": "Reads the most recent result from Speedtest Tracker's API on your network (http://<address>/api/v1/results/latest) with an API token. Speedtest Tracker runs the tests on its own schedule; this app reports the last one and doesn't start a new test. Create the token in Speedtest Tracker under API Tokens with the \"Read results\" ability. Needs Speedtest Tracker 1.0 or later.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/speedtest-tracker",
+  "min_meshhome": "1.0.1",
+  "settings": [
+    {
+      "key": "host",
+      "label": "Speedtest Tracker address",
+      "type": "host",
+      "required": true,
+      "placeholder": "192.168.1.60:8080",
+      "help": "The IP address or hostname of Speedtest Tracker on your network, with its port if it isn't 80. It is read over http://."
+    },
+    {
+      "key": "token",
+      "label": "API token",
+      "type": "secret",
+      "required": true,
+      "help": "In Speedtest Tracker: API Tokens → Create, with the \"Read results\" ability."
+    }
+  ],
+  "sources": {
+    "latest": {
+      "url": "http://{host}/api/v1/results/latest",
+      "network": "local",
+      "headers": {"Authorization": "Bearer {token}"},
+      "timeout": 6,
+      "cache_seconds": 120
+    }
+  },
+  "commands": [
+    {
+      "name": "speed",
+      "help": "latest internet speed test",
+      "source": "latest",
+      "values": {
+        "down": {"from": ["data.download_bits_human"]},
+        "up": {"from": ["data.upload_bits_human"]},
+        "ping": {"from": ["data.ping"]},
+        "loss": {"from": ["data.data.packetLoss"]},
+        "isp": {"from": ["data.data.isp"], "format": "text"},
+        "when": {"from": ["data.created_at"], "format": "text"}
+      },
+      "reply": {
+        "parts": [
+          {"items": ["down {down} {down.unit}", "up {up} {up.unit}", "ping {ping} ms"]},
+          {"items": ["loss {loss}%"]},
+          {"items": ["{when}", "{isp}"], "drop": "end"}
+        ],
+        "join": " · ",
+        "item_join": " · ",
+        "max_bytes": 150,
+        "empty": "Speedtest Tracker's latest test has no result (it may have failed).",
+        "unavailable": "Speedtest Tracker isn't answering right now."
+      }
+    }
+  ]
+}

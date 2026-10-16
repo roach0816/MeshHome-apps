@@ -2,6 +2,16 @@
   "schema": 1,
   "apps": [
     {
+      "id": "adguardhome",
+      "name": "AdGuard Home",
+      "version": "1.0.0",
+      "category": "Network",
+      "summary": "DNS queries, blocked queries and protection status from your AdGuard Home server.",
+      "recipe": "apps/adguardhome/app.json",
+      "sha256": "645c16fd3270377d9a3b8b6afc32988cae4519f351957fb37e6bf9f302c10da8",
+      "min_meshhome": "1.0.1"
+    },
+    {
       "id": "ambientweather",
       "name": "Ambient Weather station",
       "version": "1.0.0",
@@ -18,6 +28,66 @@
       "summary": "Local weather from your Ecowitt gateway or Wi-Fi console: temperature, humidity, wind, rain and air quality.",
       "recipe": "apps/ecowitt/app.json",
       "sha256": "c6c78e411c5653659db9db1329c2ec7ca7bffd017029d91335babc2d38446a37"
+    },
+    {
+      "id": "homeassistant",
+      "name": "Home Assistant",
+      "version": "1.0.0",
+      "category": "Home automation",
+      "summary": "The state of Home Assistant entities you group by name, such as /ha garage for both garage doors.",
+      "recipe": "apps/homeassistant/app.json",
+      "sha256": "3ce91a6cdb45f90de412ebf1be9ce22132423bbe15e1f5991178777a3cba9a80",
+      "min_meshhome": "1.0.1"
+    },
+    {
+      "id": "openhab",
+      "name": "openHAB",
+      "version": "1.0.0",
+      "category": "Home automation",
+      "summary": "The state of openHAB items you group by name, such as /oh garage for both garage doors.",
+      "recipe": "apps/openhab/app.json",
+      "sha256": "3c14220c588dccfa2f86988149de25033d711623c341842991e5f4d468bc33ca",
+      "min_meshhome": "1.0.1"
+    },
+    {
+      "id": "piaware",
+      "name": "PiAware / dump1090-fa",
+      "version": "1.0.0",
+      "category": "Radio & tracking",
+      "summary": "Aircraft your ADS-B receiver is tracking, message rate and signal, plus PiAware's feeder status.",
+      "recipe": "apps/piaware/app.json",
+      "sha256": "8241f97fe6121b0cb0cb69f5ea24c017abee3be444ba9f8b9905b1dd1569f042",
+      "min_meshhome": "1.0.1"
+    },
+    {
+      "id": "pihole",
+      "name": "Pi-hole",
+      "version": "1.0.0",
+      "category": "Network",
+      "summary": "Queries today, how many were blocked and whether blocking is on, from your Pi-hole (version 6).",
+      "recipe": "apps/pihole/app.json",
+      "sha256": "efe522eea7b9a85cf3b49039475e9c556501bbb2bf55451b302d75efc3efd7d3",
+      "min_meshhome": "1.0.1"
+    },
+    {
+      "id": "speedtest-tracker",
+      "name": "Speedtest Tracker",
+      "version": "1.0.0",
+      "category": "Network",
+      "summary": "Your internet connection's latest download, upload and ping from Speedtest Tracker.",
+      "recipe": "apps/speedtest-tracker/app.json",
+      "sha256": "c4252d633da0975207fa73098fb66cd57d4507b66ca29708921cdcca4cf85935",
+      "min_meshhome": "1.0.1"
+    },
+    {
+      "id": "sports",
+      "name": "Sports scores",
+      "version": "1.0.0",
+      "category": "Sports",
+      "summary": "Your team's latest result and next game, with its record, from ESPN. Pick a league and a team.",
+      "recipe": "apps/sports/app.json",
+      "sha256": "a4f80c8d1f418c07dcf0ef061b76e2c35c7590355b947046b503ed20f9d52579",
+      "min_meshhome": "1.0.1"
     },
     {
       "id": "tempest",
