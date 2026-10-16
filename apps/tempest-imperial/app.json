@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "id": "tempest-imperial",
+  "name": "Tempest weather station (imperial)",
+  "version": "1.0.0",
+  "category": "Weather",
+  "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, in US units.",
+  "description": "Reads your station's current conditions from the Tempest API (swd.weatherflow.com) with a personal access token; the station must be online and uploading to Tempest. Create the token at tempestwx.com → Settings → Data Authorizations. Replies are in US units (°F, mph, inches, inHg); for metric install Tempest weather station (metric). The Tempest hub's local UDP broadcast is not used.",
+  "author": "MeshHome",
+  "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/tempest-imperial",
+  "hosts": ["swd.weatherflow.com"],
+  "settings": [
+    {
+      "key": "station_id",
+      "label": "Station ID",
+      "type": "text",
+      "required": true,
+      "placeholder": "12345",
+      "help": "The number in your station's address on tempestwx.com (tempestwx.com/station/12345), also shown in the Tempest app under Settings → Stations."
+    },
+    {
+      "key": "token",
+      "label": "Personal access token",
+      "type": "secret",
+      "required": true,
+      "help": "From tempestwx.com → Settings → Data Authorizations → Create Token. It gives read access to your stations."
+    }
+  ],
+  "sources": {
+    "current": {
+      "url": "https://swd.weatherflow.com/swd/rest/better_forecast?station_id={station_id}&units_temp=f&units_wind=mph&units_precip=in&units_pressure=inhg&units_distance=mi",
+      "network": "internet",
+      "headers": {"Authorization": "Bearer {token}"},
+      "timeout": 8,
+      "cache_seconds": 60
+    }
+  },
+  "commands": [
+    {
+      "name": "weather",
+      "help": "local weather",
+      "source": "current",
+      "values": {
+        "temp": {
+          "from": ["current_conditions.air_temperature"],
+          "unit_from": ["units.units_temp"],
+          "unit_map": {"F": "°F", "C": "°C"}
+        },
+        "humidity": {"from": ["current_conditions.relative_humidity"]},
+        "wind": {
+          "from": ["current_conditions.wind_avg"],
+          "unit_from": ["units.units_wind"],
+          "unit_map": {"mps": "m/s", "kph": "km/h", "kts": "kn", "bft": "Bft"}
+        },
+        "gust": {"from": ["current_conditions.wind_gust"]},
+        "wind_dir": {"from": ["current_conditions.wind_direction"], "format": "compass"},
+        "rain": {
+          "from": ["current_conditions.precip_accum_local_day"],
+          "unit_from": ["units.units_precip"]
+        },
+        "conditions": {"from": ["current_conditions.conditions"], "format": "text"},
+        "pressure": {
+          "from": ["current_conditions.sea_level_pressure"],
+          "unit_from": ["units.units_pressure"],
+          "unit_map": {"inhg": "inHg", "hpa": "hPa", "mmhg": "mmHg"}
+        },
+        "uv": {"from": ["current_conditions.uv"]}
+      },
+      "reply": {
+        "parts": [
+          {"items": ["{temp}{temp.unit}", "{humidity}% RH"]},
+          {"items": ["wind {wind} {wind.unit}[ {wind_dir}][, gust {gust}]"]},
+          {"items": ["rain today {rain} {rain.unit}"]},
+          {"items": ["{conditions}", "{pressure} {pressure.unit}", "UV {uv}"], "drop": "end"}
+        ],
+        "join": " · ",
+        "item_join": " ",
+        "max_bytes": 150,
+        "empty": "The Tempest station reported no current conditions.",
+        "unavailable": "The Tempest service isn't answering right now."
+      }
+    }
+  ]
+}

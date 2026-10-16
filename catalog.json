@@ -21,12 +21,21 @@
     },
     {
       "id": "tempest",
-      "name": "Tempest weather station",
+      "name": "Tempest weather station (metric)",
+      "version": "1.1.0",
+      "category": "Weather",
+      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, in metric units.",
+      "recipe": "apps/tempest/app.json",
+      "sha256": "3f73ed500162ad6c0707a85a601d7d544be012d09da7eb8b03ef5fdb488aa552"
+    },
+    {
+      "id": "tempest-imperial",
+      "name": "Tempest weather station (imperial)",
       "version": "1.0.0",
       "category": "Weather",
-      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV.",
-      "recipe": "apps/tempest/app.json",
-      "sha256": "be562b707d671870c3786c7b6cd2a6b44cf842ee8fc5fb114bb2dd24056e93cf"
+      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, in US units.",
+      "recipe": "apps/tempest-imperial/app.json",
+      "sha256": "0caca35d76a8ccaa033b8bc83cd7943f6e5389b15e4b1efdbe5d900b0a4058af"
     }
   ]
 }

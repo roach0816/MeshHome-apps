@@ -1,11 +1,11 @@
 {
   "schema": 1,
   "id": "tempest",
-  "name": "Tempest weather station",
-  "version": "1.0.0",
+  "name": "Tempest weather station (metric)",
+  "version": "1.1.0",
   "category": "Weather",
-  "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV.",
-  "description": "Reads your station's current conditions from the Tempest API (swd.weatherflow.com) with a personal access token; the station must be online and uploading to Tempest. Create the token at tempestwx.com → Settings → Data Authorizations. Readings use the units set for your station in the Tempest app. The Tempest hub's local UDP broadcast is not used.",
+  "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, in metric units.",
+  "description": "Reads your station's current conditions from the Tempest API (swd.weatherflow.com) with a personal access token; the station must be online and uploading to Tempest. Create the token at tempestwx.com → Settings → Data Authorizations. Replies are in metric units (°C, km/h, mm, hPa); for °F, mph, inches and inHg install Tempest weather station (imperial). The Tempest hub's local UDP broadcast is not used.",
   "author": "MeshHome",
   "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/tempest",
   "hosts": ["swd.weatherflow.com"],
@@ -28,7 +28,7 @@
   ],
   "sources": {
     "current": {
-      "url": "https://swd.weatherflow.com/swd/rest/better_forecast?station_id={station_id}",
+      "url": "https://swd.weatherflow.com/swd/rest/better_forecast?station_id={station_id}&units_temp=c&units_wind=kph&units_precip=mm&units_pressure=hpa&units_distance=km",
       "network": "internet",
       "headers": {"Authorization": "Bearer {token}"},
       "timeout": 8,
