@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "openhab",
   "name": "openHAB",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Home automation",
   "summary": "The state of openHAB items you group by name, such as /oh garage for both garage doors.",
   "description": "Reads item states from openHAB's REST API (http://<address>/rest/items/<item>) on your network. You choose which items can be read over the air by putting them in named groups: /oh garage reads every item in the garage group and replies with each one's label and state, and /oh on its own lists your group names. Nothing outside your groups can be read. It signs in with an API token, which you create in openHAB under your profile → API Tokens.",
@@ -54,7 +54,7 @@
         "state": {
           "from": ["transformedState", "state"],
           "format": "text",
-          "map": {"ON": "on", "OFF": "off", "OPEN": "open", "CLOSED": "closed", "NULL": "?", "UNDEF": "?"}
+          "map": {"ON": "🟢 on", "OFF": "⚫ off", "OPEN": "🔓 open", "CLOSED": "🔒 closed", "NULL": "❔", "UNDEF": "❔"}
         }
       },
       "reply": {

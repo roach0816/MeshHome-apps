@@ -1,13 +1,14 @@
 {
-  "schema": 1,
+  "schema": 3,
   "id": "tempest",
   "name": "Tempest weather station (metric)",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "category": "Weather",
-  "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, in metric units.",
-  "description": "Reads your station's current conditions from the Tempest API (swd.weatherflow.com) with a personal access token; the station must be online and uploading to Tempest. Create the token at tempestwx.com → Settings → Data Authorizations. Replies are in metric units (°C, km/h, mm, hPa); for °F, mph, inches and inHg install Tempest weather station (imperial). The Tempest hub's local UDP broadcast is not used.",
+  "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, and tomorrow's forecast, in metric units.",
+  "description": "Reads your station's current conditions from the Tempest API (swd.weatherflow.com) with a personal access token; the station must be online and uploading to Tempest. Create the token at tempestwx.com → Settings → Data Authorizations. Replies are in metric units (°C, km/h, mm, hPa); for °F, mph, inches and inHg install Tempest weather station (imperial). Tomorrow's forecast (conditions, high and low, and wind) is Tempest's own forecast for your station; its wind is the forecast for about this time tomorrow, since Tempest forecasts wind by the hour. The Tempest hub's local UDP broadcast is not used.",
   "author": "MeshHome",
   "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/tempest",
+  "min_meshhome": "1.0.1",
   "hosts": ["swd.weatherflow.com"],
   "settings": [
     {
@@ -58,20 +59,49 @@
           "from": ["current_conditions.precip_accum_local_day"],
           "unit_from": ["units.units_precip"]
         },
-        "conditions": {"from": ["current_conditions.conditions"], "format": "text"},
         "pressure": {
           "from": ["current_conditions.sea_level_pressure"],
           "unit_from": ["units.units_pressure"],
           "unit_map": {"inhg": "inHg", "hpa": "hPa", "mmhg": "mmHg"}
         },
-        "uv": {"from": ["current_conditions.uv"]}
+        "uv": {"from": ["current_conditions.uv"]},
+        "sky": {"from": ["current_conditions.icon"], "format": "text", "map": {
+            "clear-day": "☀️", "clear-night": "🌙", "cloudy": "☁️", "foggy": "🌫️",
+            "partly-cloudy-day": "⛅", "partly-cloudy-night": "☁️",
+            "possibly-rainy-day": "🌦️", "possibly-rainy-night": "🌧️", "rainy": "🌧️",
+            "possibly-sleet-day": "🌨️", "possibly-sleet-night": "🌨️", "sleet": "🌨️",
+            "possibly-snow-day": "🌨️", "possibly-snow-night": "🌨️", "snow": "❄️",
+            "possibly-thunderstorm-day": "⛈️", "possibly-thunderstorm-night": "⛈️", "thunderstorm": "⛈️",
+            "windy": "💨"
+          }},
+        "tmrw_sky": {"from": ["forecast.daily[1].icon"], "format": "text", "map": {
+            "clear-day": "☀️", "clear-night": "🌙", "cloudy": "☁️", "foggy": "🌫️",
+            "partly-cloudy-day": "⛅", "partly-cloudy-night": "☁️",
+            "possibly-rainy-day": "🌦️", "possibly-rainy-night": "🌧️", "rainy": "🌧️",
+            "possibly-sleet-day": "🌨️", "possibly-sleet-night": "🌨️", "sleet": "🌨️",
+            "possibly-snow-day": "🌨️", "possibly-snow-night": "🌨️", "snow": "❄️",
+            "possibly-thunderstorm-day": "⛈️", "possibly-thunderstorm-night": "⛈️", "thunderstorm": "⛈️",
+            "windy": "💨"
+          }},
+        "tmrw_high": {"from": ["forecast.daily[1].air_temp_high"]},
+        "tmrw_low": {
+          "from": ["forecast.daily[1].air_temp_low"],
+          "unit_from": ["units.units_temp"],
+          "unit_map": {"F": "°F", "C": "°C"}
+        },
+        "tmrw_wind": {
+          "from": ["forecast.hourly[23].wind_avg"],
+          "unit_from": ["units.units_wind"],
+          "unit_map": {"mps": "m/s", "kph": "km/h", "kts": "kn", "bft": "Bft"}
+        }
       },
       "reply": {
         "parts": [
-          {"items": ["{temp}{temp.unit}", "{humidity}% RH"]},
-          {"items": ["wind {wind} {wind.unit}[ {wind_dir}][, gust {gust}]"]},
-          {"items": ["rain today {rain} {rain.unit}"]},
-          {"items": ["{conditions}", "{pressure} {pressure.unit}", "UV {uv}"], "drop": "end"}
+          {"items": ["{sky}", "🌡️{temp}{temp.unit}", "💧{humidity}%"]},
+          {"items": ["💨{wind} {wind.unit}[ {wind_dir}][, gust {gust}]"]},
+          {"items": ["☔{rain} {rain.unit} today"]},
+          {"items": ["Tmrw[ {tmrw_sky}] {tmrw_high}/{tmrw_low}{tmrw_low.unit}[ 💨{tmrw_wind} {tmrw_wind.unit}]"]},
+          {"items": ["⏲️{pressure} {pressure.unit}", "🔆UV {uv}"], "drop": "end"}
         ],
         "join": " · ",
         "item_join": " ",

@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "homeassistant",
   "name": "Home Assistant",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "category": "Home automation",
   "summary": "The state of Home Assistant entities you group by name, such as /ha garage for both garage doors.",
   "description": "Reads entity states from Home Assistant's REST API (/api/states/<entity>) on your network, over http:// or, if you turned on SSL, https://, with a long-lived access token. Over https:// it accepts Home Assistant's certificate even if it's self-signed or issued for another name. You choose which entities can be read over the air by putting them in named groups: /ha garage reads every entity in the garage group and replies with each one's name and state, and /ha on its own lists your group names. Nothing outside your groups can be read. Create the token in Home Assistant under your profile → Security → Long-lived access tokens.",
@@ -67,7 +67,7 @@
         "state": {
           "from": ["state"],
           "format": "text",
-          "map": {"not_home": "away", "unavailable": "offline", "unknown": "?"}
+          "map": {"on": "🟢 on", "off": "⚫ off", "open": "🔓 open", "closed": "🔒 closed", "locked": "🔒 locked", "unlocked": "🔓 unlocked", "home": "🏠 home", "not_home": "🚶 away", "unavailable": "⚠️ offline", "unknown": "❔"}
         },
         "unit": {"from": ["attributes.unit_of_measurement"], "format": "text"}
       },

@@ -1,14 +1,15 @@
 {
-  "schema": 1,
+  "schema": 3,
   "id": "ambientweather",
   "name": "Ambient Weather station",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Weather",
-  "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality.",
-  "description": "Reads your station's latest readings from the AmbientWeather.net API (api.ambientweather.net), so the station must be uploading to AmbientWeather.net. Create an API key and an Application key on your AmbientWeather.net account page and enter both here. If your account has several stations, the first one listed is used. Readings are in US units (°F, mph, inches, inHg).",
+  "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality, and tomorrow's forecast.",
+  "description": "Reads your station's latest readings from the AmbientWeather.net API (api.ambientweather.net), so the station must be uploading to AmbientWeather.net. Create an API key and an Application key on your AmbientWeather.net account page and enter both here. If your account has several stations, the first one listed is used. Readings are in US units (°F, mph, inches, inHg). Enter your latitude and longitude to add tomorrow's forecast (conditions, high and low, and wind) from Open-Meteo (api.open-meteo.com), which needs no account; your station's readings are still sent when the forecast can't be read.",
   "author": "MeshHome",
   "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/ambientweather",
-  "hosts": ["api.ambientweather.net"],
+  "min_meshhome": "1.0.1",
+  "hosts": ["api.ambientweather.net", "api.open-meteo.com"],
   "settings": [
     {
       "key": "api_key",
@@ -23,6 +24,22 @@
       "type": "secret",
       "required": true,
       "help": "From the same API Keys page: Create Application Key. Ambient's API needs both keys."
+    },
+    {
+      "key": "latitude",
+      "label": "Latitude (for the forecast)",
+      "type": "text",
+      "required": false,
+      "placeholder": "40.71",
+      "help": "Optional. Your location in decimal degrees, for tomorrow's forecast from Open-Meteo. Two decimals (about 1 km) is plenty. Leave blank for no forecast."
+    },
+    {
+      "key": "longitude",
+      "label": "Longitude (for the forecast)",
+      "type": "text",
+      "required": false,
+      "placeholder": "-74.01",
+      "help": "Optional. Negative west of Greenwich, such as -74.01 for New York."
     }
   ],
   "sources": {
@@ -31,13 +48,19 @@
       "network": "internet",
       "timeout": 8,
       "cache_seconds": 60
+    },
+    "forecast": {
+      "url": "https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto&forecast_days=2",
+      "network": "internet",
+      "timeout": 6,
+      "cache_seconds": 1800
     }
   },
   "commands": [
     {
       "name": "weather",
       "help": "local weather",
-      "source": "devices",
+      "sources": ["devices", "forecast"],
       "values": {
         "temp": {"from": ["[0].lastData.tempf"]},
         "humidity": {"from": ["[0].lastData.humidity"]},
@@ -54,14 +77,31 @@
         "uv": {"from": ["[0].lastData.uv"]},
         "aqi": {"from": ["[0].lastData.aqi_pm25", "[0].lastData.aqi_pm25_aqin"]},
         "pm25": {"from": ["[0].lastData.pm25", "[0].lastData.pm25_in_aqin"]},
-        "co2": {"from": ["[0].lastData.co2_in_aqin"]}
+        "co2": {"from": ["[0].lastData.co2_in_aqin"]},
+        "tmrw_sky": {
+          "source": "forecast",
+          "from": ["daily.weather_code[1]"],
+          "format": "text",
+          "map": {
+            "0": "☀️", "1": "🌤️", "2": "⛅", "3": "☁️", "45": "🌫️", "48": "🌫️",
+            "51": "🌦️", "53": "🌦️", "55": "🌦️", "56": "🌨️", "57": "🌨️",
+            "61": "🌧️", "63": "🌧️", "65": "🌧️", "66": "🌨️", "67": "🌨️",
+            "71": "❄️", "73": "❄️", "75": "❄️", "77": "❄️",
+            "80": "🌦️", "81": "🌧️", "82": "🌧️", "85": "🌨️", "86": "🌨️",
+            "95": "⛈️", "96": "⛈️", "99": "⛈️"
+          }
+        },
+        "tmrw_high": {"source": "forecast", "from": ["daily.temperature_2m_max[1]"]},
+        "tmrw_low": {"source": "forecast", "from": ["daily.temperature_2m_min[1]"]},
+        "tmrw_wind": {"source": "forecast", "from": ["daily.wind_speed_10m_max[1]"]}
       },
       "reply": {
         "parts": [
-          {"items": ["{temp}°F", "{humidity}% RH"]},
-          {"items": ["wind {wind} mph[ {wind_dir}][, gust {gust}]"]},
-          {"items": ["rain {rain.label} {rain} in"]},
-          {"items": ["{pressure} inHg", "UV {uv}", "AQI {aqi}", "PM2.5 {pm25}", "CO2 {co2}ppm"], "drop": "end"}
+          {"items": ["🌡️{temp}°F", "💧{humidity}%"]},
+          {"items": ["💨{wind} mph[ {wind_dir}][, gust {gust}]"]},
+          {"items": ["☔{rain} in {rain.label}"]},
+          {"items": ["Tmrw[ {tmrw_sky}] {tmrw_high}/{tmrw_low}°F[ 💨{tmrw_wind} mph]"]},
+          {"items": ["⏲️{pressure} inHg", "🔆UV {uv}", "🍃AQI {aqi}", "🌫️PM2.5 {pm25}", "🫁CO2 {co2}ppm"], "drop": "end"}
         ],
         "join": " · ",
         "item_join": " ",

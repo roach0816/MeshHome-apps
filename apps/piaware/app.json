@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "piaware",
   "name": "PiAware / dump1090-fa",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Radio & tracking",
   "summary": "Aircraft your ADS-B receiver is tracking, message rate and signal, plus PiAware's feeder status.",
   "description": "Reads SkyAware's data on your PiAware or dump1090-fa receiver (http://<address>/skyaware/data/aircraft.json and stats.json) and PiAware's status (/status.json). /planes counts the aircraft tracked right now and how many have a position, with messages and signal over the last minute. /feeder shows whether PiAware, the FlightAware connection, the radio and MLAT are working. Use the address you open SkyAware at, without /skyaware.",
@@ -54,9 +54,9 @@
       },
       "reply": {
         "parts": [
-          {"items": ["{total} aircraft[, {positions} with position]"]},
-          {"items": ["{messages} msgs/min"]},
-          {"items": ["signal {signal} dBFS[, peak {peak}]"], "drop": "end"}
+          {"items": ["✈️{total} aircraft[, {positions} with position]"]},
+          {"items": ["📡{messages} msgs/min"]},
+          {"items": ["📶signal {signal} dBFS[, peak {peak}]"], "drop": "end"}
         ],
         "join": " · ",
         "max_bytes": 150,
@@ -69,10 +69,10 @@
       "help": "PiAware feeder status",
       "source": "status",
       "values": {
-        "piaware": {"from": ["piaware.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}},
-        "adept": {"from": ["adept.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}},
-        "radio": {"from": ["radio.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}},
-        "mlat": {"from": ["mlat.status"], "format": "text", "map": {"green": "ok", "amber": "warn", "red": "DOWN"}}
+        "piaware": {"from": ["piaware.status"], "format": "text", "map": {"green": "✅", "amber": "⚠️", "red": "❌ DOWN"}},
+        "adept": {"from": ["adept.status"], "format": "text", "map": {"green": "✅", "amber": "⚠️", "red": "❌ DOWN"}},
+        "radio": {"from": ["radio.status"], "format": "text", "map": {"green": "✅", "amber": "⚠️", "red": "❌ DOWN"}},
+        "mlat": {"from": ["mlat.status"], "format": "text", "map": {"green": "✅", "amber": "⚠️", "red": "❌ DOWN"}}
       },
       "reply": {
         "parts": [

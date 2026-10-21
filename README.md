@@ -7,8 +7,8 @@ that people on the mesh can send to your node, such as `/weather`. You install t
 | App | Category | Command | What it does |
 | --- | --- | --- | --- |
 | [AdGuard Home](apps/adguardhome/app.json) | Network | `/dns` | DNS queries, blocked queries and protection status from AdGuard Home on your network |
-| [Ambient Weather station](apps/ambientweather/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain, pressure and air quality from your Ambient Weather station, read from AmbientWeather.net with your API keys |
-| [Ecowitt weather station](apps/ecowitt/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain and air quality from your Ecowitt gateway, read on your network |
+| [Ambient Weather station](apps/ambientweather/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain, pressure and air quality from your Ambient Weather station, read from AmbientWeather.net with your API keys, and tomorrow's forecast from Open-Meteo |
+| [Ecowitt weather station](apps/ecowitt/app.json) | Weather | `/weather` | Temperature, humidity, wind, rain and air quality from your Ecowitt gateway, read on your network, and tomorrow's forecast from Open-Meteo |
 | [Enphase Envoy solar](apps/enphase/app.json) | Energy & solar | `/solar` | Solar production now and today, home use and grid power from your Envoy (firmware 7+), read on your network |
 | [Home Assistant](apps/homeassistant/app.json) | Home automation | `/ha <group>` | The state of each entity in a group you define, such as both garage doors, read on your network over http:// or https:// |
 | [openHAB](apps/openhab/app.json) | Home automation | `/oh <group>` | The state of each item in a group you define, read on your network |
@@ -16,7 +16,7 @@ that people on the mesh can send to your node, such as `/weather`. You install t
 | [Pi-hole](apps/pihole/app.json) | Network | `/dns` | Queries today, blocked queries and blocking status from Pi-hole 6 on your network |
 | [Speedtest Tracker](apps/speedtest-tracker/app.json) | Network | `/speed` | The latest download, upload and ping from Speedtest Tracker on your network |
 | [Sports scores](apps/sports/app.json) | Sports | `/sports` | Your team's latest result and next game, with its record, from ESPN |
-| [Tempest weather station (imperial)](apps/tempest-imperial/app.json) | Weather | `/weather` | Conditions, temperature, humidity, wind, rain, pressure and UV from your WeatherFlow Tempest station in °F, mph, inches and inHg, read from the Tempest API with your access token |
+| [Tempest weather station (imperial)](apps/tempest-imperial/app.json) | Weather | `/weather` | Conditions, temperature, humidity, wind, rain, pressure, UV and tomorrow's forecast from your WeatherFlow Tempest station in °F, mph, inches and inHg, read from the Tempest API with your access token |
 | [Tempest weather station (metric)](apps/tempest/app.json) | Weather | `/weather` | The same in °C, km/h, mm and hPa |
 
 ## How apps work

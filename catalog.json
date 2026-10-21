@@ -4,118 +4,122 @@
     {
       "id": "adguardhome",
       "name": "AdGuard Home",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Network",
       "summary": "DNS queries, blocked queries and protection status from your AdGuard Home server.",
       "recipe": "apps/adguardhome/app.json",
-      "sha256": "645c16fd3270377d9a3b8b6afc32988cae4519f351957fb37e6bf9f302c10da8",
+      "sha256": "d4cb532654c5cd2ac0fa9bed2edec6556e8975b96fdce599b63594831830a1fa",
       "min_meshhome": "1.0.1"
     },
     {
       "id": "ambientweather",
       "name": "Ambient Weather station",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Weather",
-      "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality.",
+      "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality, and tomorrow's forecast.",
       "recipe": "apps/ambientweather/app.json",
-      "sha256": "08de0007e5b9b3e95a554687db521cfa4154693c6231a215714550f813e3eeb2"
+      "sha256": "da9ffbb5a3ba90c099edd1f7fa43744a766068a3e4b6183faa3486304de6ede1",
+      "min_meshhome": "1.0.1"
     },
     {
       "id": "ecowitt",
       "name": "Ecowitt weather station",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "category": "Weather",
-      "summary": "Local weather from your Ecowitt gateway or Wi-Fi console: temperature, humidity, wind, rain and air quality.",
+      "summary": "Local weather from your Ecowitt gateway or Wi-Fi console: temperature, humidity, wind, rain and air quality, and tomorrow's forecast.",
       "recipe": "apps/ecowitt/app.json",
-      "sha256": "c6c78e411c5653659db9db1329c2ec7ca7bffd017029d91335babc2d38446a37"
+      "sha256": "3fa7eee867d1a1b4be59f799245f71d6a95a018b4eab69a1c8cc820002ebcd05",
+      "min_meshhome": "1.0.2"
     },
     {
       "id": "enphase",
       "name": "Enphase Envoy solar",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Energy & solar",
       "summary": "Solar production now and today from your Enphase Envoy (IQ Gateway), plus home use and grid power if it has consumption meters.",
       "recipe": "apps/enphase/app.json",
-      "sha256": "2c8be652b4b8f4bbc88278f5e7ddce7b8caa03c8605e0a83d95130a4fc2dd06a",
+      "sha256": "43cd61b4d6d57f9b76f701e562df1ed479da9f50488ea45671be48047873c06a",
       "min_meshhome": "1.0.2"
     },
     {
       "id": "homeassistant",
       "name": "Home Assistant",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "Home automation",
       "summary": "The state of Home Assistant entities you group by name, such as /ha garage for both garage doors.",
       "recipe": "apps/homeassistant/app.json",
-      "sha256": "872e32266eff23fe46add8c3dc05a8349e481fab92a99d48149ce3fec256f76f",
+      "sha256": "95f0ed9001b745f659a1579124b4eea83e338cddb7a1d0f431943754e344720e",
       "min_meshhome": "1.0.2"
     },
     {
       "id": "openhab",
       "name": "openHAB",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Home automation",
       "summary": "The state of openHAB items you group by name, such as /oh garage for both garage doors.",
       "recipe": "apps/openhab/app.json",
-      "sha256": "3c14220c588dccfa2f86988149de25033d711623c341842991e5f4d468bc33ca",
+      "sha256": "5f76cb38272024491b6845182509c12703e00bf2df4491e3a3a5120b234e7648",
       "min_meshhome": "1.0.1"
     },
     {
       "id": "piaware",
       "name": "PiAware / dump1090-fa",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Radio & tracking",
       "summary": "Aircraft your ADS-B receiver is tracking, message rate and signal, plus PiAware's feeder status.",
       "recipe": "apps/piaware/app.json",
-      "sha256": "8241f97fe6121b0cb0cb69f5ea24c017abee3be444ba9f8b9905b1dd1569f042",
+      "sha256": "33f42bde2d0a4cdd38d3f85aef19547641593804bdbaaeafebd03bbaf90441ca",
       "min_meshhome": "1.0.1"
     },
     {
       "id": "pihole",
       "name": "Pi-hole",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Network",
       "summary": "Queries today, how many were blocked and whether blocking is on, from your Pi-hole (version 6).",
       "recipe": "apps/pihole/app.json",
-      "sha256": "efe522eea7b9a85cf3b49039475e9c556501bbb2bf55451b302d75efc3efd7d3",
+      "sha256": "ae8a5fc70541b29381e1f8ffd5f94890a9d976058875eacf6e0514d6a6ba85ff",
       "min_meshhome": "1.0.1"
     },
     {
       "id": "speedtest-tracker",
       "name": "Speedtest Tracker",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Network",
       "summary": "Your internet connection's latest download, upload and ping from Speedtest Tracker.",
       "recipe": "apps/speedtest-tracker/app.json",
-      "sha256": "c4252d633da0975207fa73098fb66cd57d4507b66ca29708921cdcca4cf85935",
+      "sha256": "742000858a9a965f8f13a5f26dba732e26a7cc91edcf61370a4611c2477d0dc6",
       "min_meshhome": "1.0.1"
     },
     {
       "id": "sports",
       "name": "Sports scores",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Sports",
       "summary": "Your team's latest result and next game, with its record, from ESPN. Pick a league and a team.",
       "recipe": "apps/sports/app.json",
-      "sha256": "a4f80c8d1f418c07dcf0ef061b76e2c35c7590355b947046b503ed20f9d52579",
+      "sha256": "f29ba1b867cfa58b342c223b015168ac71c81cc4801e61518872040004179895",
       "min_meshhome": "1.0.1"
     },
     {
       "id": "tempest",
       "name": "Tempest weather station (metric)",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "Weather",
-      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, in metric units.",
+      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, and tomorrow's forecast, in metric units.",
       "recipe": "apps/tempest/app.json",
-      "sha256": "3f73ed500162ad6c0707a85a601d7d544be012d09da7eb8b03ef5fdb488aa552"
+      "sha256": "bfc238101a0cfa1fe32d50355ae96465bacfe7fbbc0dd0cdfe7d9136f77c9017",
+      "min_meshhome": "1.0.1"
     },
     {
       "id": "tempest-imperial",
       "name": "Tempest weather station (imperial)",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "Weather",
-      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, in US units.",
+      "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, and tomorrow's forecast, in US units.",
       "recipe": "apps/tempest-imperial/app.json",
-      "sha256": "0caca35d76a8ccaa033b8bc83cd7943f6e5389b15e4b1efdbe5d900b0a4058af"
+      "sha256": "664d0947dbee7518ce14aa5cc864916200358c30bd2cdca16cf32ffedf19e741",
+      "min_meshhome": "1.0.1"
     }
   ]
 }

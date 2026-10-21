@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "enphase",
   "name": "Enphase Envoy solar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Energy & solar",
   "summary": "Solar production now and today from your Enphase Envoy (IQ Gateway), plus home use and grid power if it has consumption meters.",
   "description": "Reads the Envoy's local API on your network (https://<envoy>/api/v1/production and /production.json) with an owner token, for firmware 7 and later. The Envoy uses a self-signed certificate, which this app accepts. Get a token at entrez.enphaseenergy.com (sign in with your Enlighten account, choose your site and gateway serial number); owner tokens last a year. Home use and grid power need consumption CTs; without them the reply shows production only. Grid power is positive when importing and negative when exporting.",
@@ -58,9 +58,9 @@
       },
       "reply": {
         "parts": [
-          {"items": ["solar {now} W", "today {today} Wh"]},
-          {"items": ["use {use} W", "grid {grid} W"]},
-          {"items": ["7 days {week} Wh"], "drop": "end"}
+          {"items": ["☀️solar {now} W", "📅today {today} Wh"]},
+          {"items": ["🏠use {use} W", "🔌grid {grid} W"]},
+          {"items": ["🗓️7 days {week} Wh"], "drop": "end"}
         ],
         "join": " · ",
         "item_join": " · ",

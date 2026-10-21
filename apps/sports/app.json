@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "sports",
   "name": "Sports scores",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Sports",
   "summary": "Your team's latest result and next game, with its record, from ESPN. Pick a league and a team.",
   "description": "Reads ESPN's public scores API (site.api.espn.com) for the team you choose: the most recent final score from the team's schedule, and the next game (or the game in progress, with its score) with the team's record. No account is needed. Game times are as ESPN gives them, in US Eastern time. ESPN's API is unofficial and may change without notice. Leagues: NFL, NBA, WNBA, MLB, NHL, MLS and the Premier League.",
@@ -304,8 +304,8 @@
           ],
           "format": "text",
           "map": {
-            "pre": "Next",
-            "in": "Now",
+            "pre": "📅Next",
+            "in": "🔴Now",
             "post": ""
           }
         },
@@ -358,7 +358,7 @@
         "parts": [
           {
             "items": [
-              "Last: {l_away} {l_away_score} @ {l_home} {l_home_score} {l_status}"
+              "🏁Last: {l_away} {l_away_score} @ {l_home} {l_home_score} {l_status}"
             ]
           },
           {
@@ -368,7 +368,7 @@
           },
           {
             "items": [
-              "{record}"
+              "📊{record}"
             ],
             "drop": "end"
           }

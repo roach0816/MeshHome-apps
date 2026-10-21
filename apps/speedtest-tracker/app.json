@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "speedtest-tracker",
   "name": "Speedtest Tracker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Network",
   "summary": "Your internet connection's latest download, upload and ping from Speedtest Tracker.",
   "description": "Reads the most recent result from Speedtest Tracker's API on your network (http://<address>/api/v1/results/latest) with an API token. Speedtest Tracker runs the tests on its own schedule; this app reports the last one and doesn't start a new test. Create the token in Speedtest Tracker under API Tokens with the \"Read results\" ability. Needs Speedtest Tracker 1.0 or later.",
@@ -50,9 +50,9 @@
       },
       "reply": {
         "parts": [
-          {"items": ["down {down} {down.unit}", "up {up} {up.unit}", "ping {ping} ms"]},
-          {"items": ["loss {loss}%"]},
-          {"items": ["{when}", "{isp}"], "drop": "end"}
+          {"items": ["⬇️{down} {down.unit}", "⬆️{up} {up.unit}", "🏓ping {ping} ms"]},
+          {"items": ["📉loss {loss}%"]},
+          {"items": ["🕒{when}", "🌐{isp}"], "drop": "end"}
         ],
         "join": " · ",
         "item_join": " · ",

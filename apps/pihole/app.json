@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "pihole",
   "name": "Pi-hole",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Network",
   "summary": "Queries today, how many were blocked and whether blocking is on, from your Pi-hole (version 6).",
   "description": "Reads Pi-hole's API on your network (http://<address>/api/stats/summary and /api/dns/blocking). It signs in with an app password and reuses the session until it expires, so it doesn't use up Pi-hole's session slots. Create the app password in Pi-hole under Settings → Web interface / API (switch to Expert) → Configure app password. Needs Pi-hole 6 or later.",
@@ -68,14 +68,14 @@
           "source": "blocking",
           "from": ["blocking"],
           "format": "text",
-          "map": {"enabled": "blocking on", "disabled": "blocking OFF", "failed": "blocking failed", "unknown": ""}
+          "map": {"enabled": "🛡️ blocking on", "disabled": "⚠️ blocking OFF", "failed": "❌ blocking failed", "unknown": ""}
         }
       },
       "reply": {
         "parts": [
-          {"items": ["{total} queries", "{blocked} blocked[ ({percent}%)]"]},
+          {"items": ["📊{total} queries", "🚫{blocked} blocked[ ({percent}%)]"]},
           {"items": ["{blocking}"]},
-          {"items": ["{clients} clients", "{domains} on blocklists"], "drop": "end"}
+          {"items": ["💻{clients} clients", "📋{domains} on blocklists"], "drop": "end"}
         ],
         "join": " · ",
         "item_join": " · ",

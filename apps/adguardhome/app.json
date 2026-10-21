@@ -2,7 +2,7 @@
   "schema": 3,
   "id": "adguardhome",
   "name": "AdGuard Home",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "category": "Network",
   "summary": "DNS queries, blocked queries and protection status from your AdGuard Home server.",
   "description": "Reads AdGuard Home's API on your network (http://<address>/control/status and /control/stats), signing in with your AdGuard Home username and password. The counts cover AdGuard Home's statistics period (24 hours unless you changed it under Settings → General settings → Statistics).",
@@ -61,14 +61,14 @@
           "source": "status",
           "from": ["protection_enabled"],
           "format": "text",
-          "map": {"true": "protection on", "false": "protection OFF"}
+          "map": {"true": "🛡️ protection on", "false": "⚠️ protection OFF"}
         }
       },
       "reply": {
         "parts": [
-          {"items": ["{queries} queries", "{blocked} blocked"]},
+          {"items": ["📊{queries} queries", "🚫{blocked} blocked"]},
           {"items": ["{protection}"]},
-          {"items": ["{safe} malware/phishing"], "drop": "end"}
+          {"items": ["🦠{safe} malware/phishing"], "drop": "end"}
         ],
         "join": " · ",
         "item_join": " · ",
