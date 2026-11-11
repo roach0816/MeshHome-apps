@@ -7,7 +7,8 @@ The [Ecowitt app](apps/ecowitt/app.json) is a complete example.
 This page describes format 1. [Format 3](#format-3) adds groups, dropdowns, several sources per
 command, Basic auth, self-signed local HTTPS, a login and more path selectors; a recipe that uses
 any of them declares `"schema": 3` and `"min_meshhome": "1.0.1"` (`"1.0.2"` for a scheme
-dropdown, a select `default`, or a secret over 253 characters).
+dropdown, a select `default`, or a secret over 253 characters; `"1.0.17"` for a value from a
+setting or literal `\[ \]`).
 
 ```json
 {
@@ -139,7 +140,8 @@ include it. `unit_map` renames units, ignoring case and `°`.
 ```
 
 - **Placeholders:** `{name}` is a value; `{name.unit}` and `{name.label}` are its unit and label.
-  Templates can only use values, never settings.
+  Templates can only use values, never settings (format 3 can make a value from a text setting;
+  see [Values and paths](#values-and-paths)).
 - **Missing values:** an item is left out when a value outside `[ ]` is missing. Text inside `[ ]` is
   only kept when all of its values exist.
 - **Fitting one message:** if the reply is longer than `max_bytes` (150 at most, for one direct
@@ -239,6 +241,11 @@ unless it names another with `"source": "schedule"`. A source that fails only le
 - **`"format": "duration"`**: seconds as `45s`, `1m23s`, `1h23m`, `2d7h`.
 - **`"map"`** (text values): `{"ON": "on", "not_home": "away"}`, ignoring case. Mapping to `""`
   leaves the value out.
+- **`{"setting": "location", "format": "text"}`** (MeshHome 1.0.17), instead of `from`: a `text`
+  setting as the owner typed it, up to 60 characters. A blank setting leaves the value out. It's sent
+  over the air, so say so in the setting's `help`. The weather apps use it for a `City, ST`.
+- **`\[` and `\]`** in a reply (MeshHome 1.0.17; `"\\["` in JSON): literal brackets, not an optional
+  part. `"\\[{location}\\]"` gives `[Springfield, IL]`, or is left out with no location.
 - **`[-1]`**: the last item.
 - **Dotted filter fields**: `events[competitions.0.status.type.completed=true]`.
 - **`[last:field=value]`**: the last match. **`[has:field]`**: the first item where the field is

@@ -2,13 +2,13 @@
   "schema": 3,
   "id": "ecowitt",
   "name": "Ecowitt weather station",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "category": "Weather",
   "summary": "Local weather from your Ecowitt gateway or Wi-Fi console: temperature, humidity, wind, rain and air quality, and tomorrow's forecast.",
   "description": "Reads the gateway's local live data (http://<gateway>/get_livedata_info) on your network. No Ecowitt account or cloud connection is used. Works with gateways and consoles such as the GW1100, GW2000 and GW3000, and their sensors (WS90, WH41/WH43 PM2.5, WH45/WH46 air quality). Readings use the units set on the gateway. Enter your latitude and longitude to add tomorrow's forecast (conditions, high and low, and wind) from Open-Meteo (api.open-meteo.com), which needs no account; your station's readings are still sent when the forecast can't be read.",
   "author": "MeshHome",
   "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/ecowitt",
-  "min_meshhome": "1.0.2",
+  "min_meshhome": "1.0.17",
   "hosts": ["api.open-meteo.com"],
   "settings": [
     {
@@ -57,6 +57,14 @@
         {"value": "ms", "label": "m/s"},
         {"value": "kn", "label": "knots"}
       ]
+    },
+    {
+      "key": "location",
+      "label": "Location to prepend",
+      "type": "text",
+      "required": false,
+      "placeholder": "Springfield, IL",
+      "help": "Optional. Shown at the start of each /weather reply in brackets, such as [Springfield, IL]. It's sent over the mesh with every reply. Leave blank to leave it out."
     }
   ],
   "sources": {
@@ -79,6 +87,7 @@
       "help": "local weather",
       "sources": ["live", "forecast"],
       "values": {
+        "location": {"setting": "location", "format": "text"},
         "temp": {
           "from": ["common_list[id=0x02].val"],
           "unit_from": ["common_list[id=0x02].unit"],
@@ -128,7 +137,7 @@
       },
       "reply": {
         "parts": [
-          {"items": ["🌡️{temp}{temp.unit}", "💧{humidity}%"]},
+          {"items": ["\\[{location}\\]", "🌡️{temp}{temp.unit}", "💧{humidity}%"]},
           {"items": ["💨{wind} {wind.unit}[ {wind_dir}][, gust {gust}]"]},
           {"items": ["☔{rain} {rain.unit} {rain.label}"]},
           {"items": ["Tmrw[ {tmrw_sky}] {tmrw_high}/{tmrw_low}{tmrw_low.unit}[ 💨{tmrw_wind} {tmrw_wind.unit}]"]},
