@@ -14,22 +14,22 @@
     {
       "id": "ambientweather",
       "name": "Ambient Weather station",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "Weather",
       "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality, and tomorrow's forecast.",
       "recipe": "apps/ambientweather/app.json",
-      "sha256": "da9ffbb5a3ba90c099edd1f7fa43744a766068a3e4b6183faa3486304de6ede1",
-      "min_meshhome": "1.0.1"
+      "sha256": "f6f471cf071efa8c71b73228e7747e5830623f0b48eef92aab2b39bc86636765",
+      "min_meshhome": "1.0.17"
     },
     {
       "id": "ecowitt",
       "name": "Ecowitt weather station",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "Weather",
       "summary": "Local weather from your Ecowitt gateway or Wi-Fi console: temperature, humidity, wind, rain and air quality, and tomorrow's forecast.",
       "recipe": "apps/ecowitt/app.json",
-      "sha256": "3fa7eee867d1a1b4be59f799245f71d6a95a018b4eab69a1c8cc820002ebcd05",
-      "min_meshhome": "1.0.2"
+      "sha256": "d54922bfdc985bf13144ccccaf2c91fb0e8c64068f8445d10e76d5e16e2a67a8",
+      "min_meshhome": "1.0.17"
     },
     {
       "id": "enphase",
@@ -104,22 +104,22 @@
     {
       "id": "tempest",
       "name": "Tempest weather station (metric)",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "category": "Weather",
       "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, and tomorrow's forecast, in metric units.",
       "recipe": "apps/tempest/app.json",
-      "sha256": "bfc238101a0cfa1fe32d50355ae96465bacfe7fbbc0dd0cdfe7d9136f77c9017",
-      "min_meshhome": "1.0.1"
+      "sha256": "4f6c0d6617d12168dcf78f89e04ff6866a48265757c6b3c8361e0075075e1aa2",
+      "min_meshhome": "1.0.17"
     },
     {
       "id": "tempest-imperial",
       "name": "Tempest weather station (imperial)",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "category": "Weather",
       "summary": "Weather from your WeatherFlow Tempest station via the Tempest API: conditions, temperature, humidity, wind, rain, pressure and UV, and tomorrow's forecast, in US units.",
       "recipe": "apps/tempest-imperial/app.json",
-      "sha256": "664d0947dbee7518ce14aa5cc864916200358c30bd2cdca16cf32ffedf19e741",
-      "min_meshhome": "1.0.1"
+      "sha256": "eb595b515f3969d17b6cbb0b1cba545a3c270f50fe46591c1ffc37ec80913251",
+      "min_meshhome": "1.0.17"
     }
   ]
 }

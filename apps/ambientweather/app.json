@@ -2,13 +2,13 @@
   "schema": 3,
   "id": "ambientweather",
   "name": "Ambient Weather station",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "category": "Weather",
   "summary": "Weather from your Ambient Weather station via AmbientWeather.net: temperature, humidity, wind, rain, pressure and air quality, and tomorrow's forecast.",
   "description": "Reads your station's latest readings from the AmbientWeather.net API (api.ambientweather.net), so the station must be uploading to AmbientWeather.net. Create an API key and an Application key on your AmbientWeather.net account page and enter both here. If your account has several stations, the first one listed is used. Readings are in US units (°F, mph, inches, inHg). Enter your latitude and longitude to add tomorrow's forecast (conditions, high and low, and wind) from Open-Meteo (api.open-meteo.com), which needs no account; your station's readings are still sent when the forecast can't be read.",
   "author": "MeshHome",
   "homepage": "https://github.com/roach0816/MeshHome-apps/tree/main/apps/ambientweather",
-  "min_meshhome": "1.0.1",
+  "min_meshhome": "1.0.17",
   "hosts": ["api.ambientweather.net", "api.open-meteo.com"],
   "settings": [
     {
@@ -40,6 +40,14 @@
       "required": false,
       "placeholder": "-74.01",
       "help": "Optional. Negative west of Greenwich, such as -74.01 for New York."
+    },
+    {
+      "key": "location",
+      "label": "Location to prepend",
+      "type": "text",
+      "required": false,
+      "placeholder": "Springfield, IL",
+      "help": "Optional. Shown at the start of each /weather reply in brackets, such as [Springfield, IL]. It's sent over the mesh with every reply. Leave blank to leave it out."
     }
   ],
   "sources": {
@@ -62,6 +70,7 @@
       "help": "local weather",
       "sources": ["devices", "forecast"],
       "values": {
+        "location": {"setting": "location", "format": "text"},
         "temp": {"from": ["[0].lastData.tempf"]},
         "humidity": {"from": ["[0].lastData.humidity"]},
         "wind": {"from": ["[0].lastData.windspeedmph"]},
@@ -97,7 +106,7 @@
       },
       "reply": {
         "parts": [
-          {"items": ["🌡️{temp}°F", "💧{humidity}%"]},
+          {"items": ["\\[{location}\\]", "🌡️{temp}°F", "💧{humidity}%"]},
           {"items": ["💨{wind} mph[ {wind_dir}][, gust {gust}]"]},
           {"items": ["☔{rain} in {rain.label}"]},
           {"items": ["Tmrw[ {tmrw_sky}] {tmrw_high}/{tmrw_low}°F[ 💨{tmrw_wind} mph]"]},
